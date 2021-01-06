@@ -111,6 +111,7 @@
     </div>
 
   <script type="text/javascript">
+    $('#profileInformation').hide()
     function requestDetailsFromApi(scannedText) {
     $.ajax({
       type: "GET",
@@ -124,6 +125,7 @@
         document.getElementById('profession').innerText = data[0].profession
         document.getElementById('dateOfBirth').innerText = data[0].date_of_birth
         document.getElementById('nextOfKinName').innerText = data[0].next_of_kin_name
+        $('#profileInformation').show();
       }
     });
   }
