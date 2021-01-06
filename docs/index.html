@@ -22,6 +22,8 @@
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
     <script type="text/javascript" src="jsPretty/jsqrscanner.nocache.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   </head>
   <body>
 
@@ -58,60 +60,84 @@
         </div>
       </div>
       <div class="row-element">
-        <div class="form-field form-field-memo">
-          <div class="form-field-caption-panel">
-            <div class="gwt-Label form-field-caption">
-              Scanned text
+          <div class="mt-5 display-flex" id = "profileInformation">
+            <div class="profile-card js-profile-card">
+              <div class="profile-card__img">
+                <img src="img/avatar-svgrepo-com.svg" alt="profile card">
+              </div>
+
+              <div class="profile-card__cnt js-profile-cnt">
+                <div id="fullname" class="profile-card__name pb-0 mb-1">{{fullname}}</div>
+
+                <div class="text-black mt-0 pt-0 font-weight-bold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                  <span id="email"> {{ email }}</span>
+                </div>
+                <hr>
+                <div id="profession" class="profile-card__txt">Profession: <strong>{{ profession }}</strong></div>
+                <div class="profile-card__txt">Date of birth: <strong id="dateOfBirth">{{ date_of_birth }}</strong></div>
+                <div class="profile-card__txt"> Next of Kin name: <strong id="nextOfKinName">{{ next_of_kin_name }}</strong></div>
+              </div>
+
+
+<!--              <div class="profile-card-inf">-->
+<!--                <div class="profile-card-inf__item">-->
+<!--                  <div class="profile-card-inf__title">1598</div>-->
+<!--                  <div class="profile-card-inf__txt">Followers</div>-->
+<!--                </div>-->
+
+<!--                <div class="profile-card-inf__item">-->
+<!--                  <div class="profile-card-inf__title">65</div>-->
+<!--                  <div class="profile-card-inf__txt">Following</div>-->
+<!--                </div>-->
+
+<!--                <div class="profile-card-inf__item">-->
+<!--                  <div class="profile-card-inf__title">123</div>-->
+<!--                  <div class="profile-card-inf__txt">Articles</div>-->
+<!--                </div>-->
+
+
+              </div>
+
             </div>
+
           </div>
-          <div class="FlexPanel form-field-input-panel">
-            <textarea id="scannedTextMemo" class="textInput form-memo form-field-input textInput-readonly" rows="3" readonly>
-            </textarea>
-          </div>
+
         </div>
-        <div class="form-field form-field-memo">
-          <div class="form-field-caption-panel">
-            <div class="gwt-Label form-field-caption">
-              Scanned text history
-            </div>
-          </div>
-          <div class="FlexPanel form-field-input-panel">
-            <textarea id="scannedTextMemoHist" class="textInput form-memo form-field-input textInput-readonly" value="" rows="6" readonly>
-            </textarea>
-          </div>
-        </div>
+
+
       </div>
       <br>
-      <a style="font-weight: bold;" href="https://github.com/jbialobr/JsQRScanner">The source code is hosted on GitHub</a>
     </div>
-  <script type="text/javascript">
-    function onQRCodeScanned(scannedText)
-    {
-      const data = { scannedQrCode: scannedText}
-      fetch('/api/qr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .catch((error) => {
-        console.error('Error:', error)
-    });
 
-    	var scannedTextMemo = document.getElementById("scannedTextMemo");
-    	if(scannedTextMemo)
-    	{
-    		scannedTextMemo.value = scannedText;
-    	}
-    	var scannedTextMemoHist = document.getElementById("scannedTextMemoHist");
-    	if(scannedTextMemoHist)
-    	{
-    		scannedTextMemoHist.value = scannedTextMemoHist.value + '\n' + scannedText;
-    	}
+  <script type="text/javascript">
+    $('#profileInformation').hide()
+    function requestDetailsFromApi(scannedText) {
+    $.ajax({
+      type: "GET",
+      url: "https://demandid-attendance.herokuapp.com/api/member/details",
+      data: {uuid: scannedText},
+      cache: false,
+      success: function (data) {
+        console.log(data)
+        document.getElementById('fullname').innerText = data[0].fullname
+        document.getElementById('email').innerText = data[0].email
+        document.getElementById('profession').innerText = data[0].profession
+        document.getElementById('dateOfBirth').innerText = data[0].date_of_birth
+        document.getElementById('nextOfKinName').innerText = data[0].next_of_kin_name
+        $('#profileInformation').show();
+      }
+    });
+  }
+
+
+
+
+  function onQRCodeScanned(scannedText)
+    {
+      requestDetailsFromApi(scannedText);
     }
-    
+
     function provideVideo()
     {
         var n = navigator;
