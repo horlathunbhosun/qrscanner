@@ -118,12 +118,16 @@
       data: {uuid: scannedText},
       cache: false,
       success: function (data) {
-        console.log(data)
-        document.getElementById('fullname').innerText = data[0].fullname
-        document.getElementById('email').innerText = data[0].email
-        document.getElementById('profession').innerText = data[0].profession
-        document.getElementById('nextOfKinName').innerText = data[0].next_of_kin_name
-        $('#profileInformation').show();
+        if (data[0] === null) {
+          alert('User does not exist!');
+        } else {
+          // console.log(data)
+          document.getElementById('fullname').innerText = data[0].fullname
+          document.getElementById('email').innerText = data[0].email
+          document.getElementById('profession').innerText = data[0].profession
+          document.getElementById('nextOfKinPhoneNumber').innerText = data[0].next_of_kin_phone_number
+          $('#profileInformation').show();
+        }
       }
     });
   }
