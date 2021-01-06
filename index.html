@@ -74,8 +74,7 @@
                   <span id="email"> {{ email }}</span>
                 </div>
                 <hr>
-                <div id="profession" class="profile-card__txt">Profession: <strong>{{ profession }}</strong></div>
-                <div class="profile-card__txt">Date of birth: <strong id="dateOfBirth">{{ date_of_birth }}</strong></div>
+                <div class="profile-card__txt">Profession: <strong id="profession">{{ profession }}</strong></div>
                 <div class="profile-card__txt"> Next of Kin name: <strong id="nextOfKinName">{{ next_of_kin_name }}</strong></div>
               </div>
 
@@ -123,7 +122,6 @@
         document.getElementById('fullname').innerText = data[0].fullname
         document.getElementById('email').innerText = data[0].email
         document.getElementById('profession').innerText = data[0].profession
-        document.getElementById('dateOfBirth').innerText = data[0].date_of_birth
         document.getElementById('nextOfKinName').innerText = data[0].next_of_kin_name
         $('#profileInformation').show();
       }
