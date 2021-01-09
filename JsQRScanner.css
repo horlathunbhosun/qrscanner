@@ -475,3 +475,26 @@ a, a:hover {
     border-radius: 12px;
     transition: all .3s;
 }
+
+#hr-profile {
+    width: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+
+#hr-profile:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
