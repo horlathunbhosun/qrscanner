@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext");
 .qrscanner video {
   max-width: 95%;
+    position: relative;
+    background: white;
+    color: white;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    transition: all .4s ease;
   max-height: 75%;
 }
-
 .row-element-set {
   display: flex;
   flex-direction: column;
@@ -474,4 +478,27 @@ a, a:hover {
     background: rgba(22, 33, 72, 0.35);
     border-radius: 12px;
     transition: all .3s;
+}
+
+#hr-profile {
+    width: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+
+#hr-profile:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
 }
