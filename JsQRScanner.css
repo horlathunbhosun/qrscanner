@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext");
 .qrscanner video {
   max-width: 95%;
+    position: relative;
+    background: white;
+    color: white;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    transition: all .4s ease;
   max-height: 75%;
 }
-
 .row-element-set {
   display: flex;
   flex-direction: column;
