@@ -5,10 +5,10 @@
 <!-- with a "Quirks Mode" doctype is not supported. -->
 
 <html>
-  <head>
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Janusz Białobrzewski" />
+    <meta name="author" content="Janusz Białobrzewski"/>
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
@@ -18,183 +18,40 @@
     <!-- Any title is fine                         -->
     <!--                                           -->
     <title>Demandid | Scan a profile</title>
-    
+
+    <style>
+        body, html {
+            height: 100%;
+        }
+    </style>
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
     <script type="text/javascript" src="jsPretty/jsqrscanner.nocache.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-  </head>
-  <body>
-
-    <div class="row-element-set row-element-set-QRScanner">
-    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-    <noscript>
-      <div class="row-element-set error_message">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
-    </noscript>
-    <div class="row-element-set error_message" id="secure-connection-message" style="display: none;" hidden >
-      You may need to serve this page over a secure connection (https) to run JsQRScanner correctly.
-    </div>
-    <script> 
-    if (location.protocol != 'https:') { 
-      document.getElementById('secure-connection-message').style='display: block';
-      }
-      </script>  
-
-      <h1 class="mb-0 text-center">Scan a profile <img class="mb-1 img-responsive" src="https://img.icons8.com/ios/50/000000/qr-code--v2.png"/></h1>
-      <hr id="hr-profile">
-
-      <div class="lead text-center">Point the webcam to a QR code.</div>
-      <br>
-      <div class="row-element">
-        <div class="qrscanner" id="scanner">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container h-100">
+    <div class="row h-100 mx-auto justify-content-center align-items-center">
+        <div class="mx-auto">
+            <a href="attendance.html"class="btn btn-danger text-white flex-items-center align-items-center justify-content-center"
+               id="formGroupExampleInput">Attendance</a>
+            <a href="scan.html" class="btn btn-primary text-white flex-items-center align-items-center justify-content-center"
+               id="formGroupExampleInput">Scan a profile</a>
         </div>
-      </div>
-      <div class="row-element">
-          <div class="mt-5 display-flex" id = "profileInformation">
-            <div class="profile-card js-profile-card">
-              <div class="profile-card__img">
-                <img src="img/avatar-svgrepo-com.svg" alt="profile card">
-              </div>
-
-              <div class="profile-card__cnt js-profile-cnt">
-                <div id="fullname" class="profile-card__name pb-0 mb-1">{{fullname}}</div>
-
-                <div class="text-black mt-0 pt-0 font-weight-bold">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
-                  <span id="email"> {{ email }}</span>
-                </div>
-                <hr>
-                <div class="profile-card__txt">Profession: <strong id="profession">{{ profession }}</strong></div>
-                <div class="profile-card__txt"> Next of Kin phone number: <strong id="nextOfKinPhoneNumber">{{ next_of_kin_phone_number }}</strong></div>
-              </div>
-
-
-<!--              <div class="profile-card-inf">-->
-<!--                <div class="profile-card-inf__item">-->
-<!--                  <div class="profile-card-inf__title">1598</div>-->
-<!--                  <div class="profile-card-inf__txt">Followers</div>-->
-<!--                </div>-->
-
-<!--                <div class="profile-card-inf__item">-->
-<!--                  <div class="profile-card-inf__title">65</div>-->
-<!--                  <div class="profile-card-inf__txt">Following</div>-->
-<!--                </div>-->
-
-<!--                <div class="profile-card-inf__item">-->
-<!--                  <div class="profile-card-inf__title">123</div>-->
-<!--                  <div class="profile-card-inf__txt">Articles</div>-->
-<!--                </div>-->
-
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-      </div>
-      <br>
     </div>
+</div>
 
-  <script type="text/javascript">
-    $('#profileInformation').hide()
-    function requestDetailsFromApi(scannedText) {
-    $.ajax({
-      type: "GET",
-      url: "https://demandid-attendance.herokuapp.com/api/member/details",
-      data: {uuid: scannedText},
-      cache: false,
-      success: function (data) {
-        if (data[0] === null) {
-          alert('User does not exist!');
-        } else {
-          // console.log(data)
-          document.getElementById('fullname').innerText = data[0].fullname
-          document.getElementById('email').innerText = data[0].email
-          document.getElementById('profession').innerText = data[0].profession
-          document.getElementById('nextOfKinPhoneNumber').innerText = data[0].next_of_kin_phone_number
-          $('#profileInformation').show();
-        }
-      }
-    });
-  }
+<!-- /container -->
 
-
-
-
-  function onQRCodeScanned(scannedText)
-    {
-      requestDetailsFromApi(scannedText);
-    }
-
-    function provideVideo()
-    {
-        var n = navigator;
-
-        if (n.mediaDevices && n.mediaDevices.getUserMedia)
-        {
-          return n.mediaDevices.getUserMedia({
-            video: {
-              facingMode: "environment"
-            },
-            audio: false
-          });
-        } 
-        
-        return Promise.reject('Your browser does not support getUserMedia');
-    }
-
-    function provideVideoQQ()
-    {
-        return navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            var exCameras = [];
-            devices.forEach(function(device) {
-            if (device.kind === 'videoinput') {
-              exCameras.push(device.deviceId)
-            }
-         });
-            
-            return Promise.resolve(exCameras);
-        }).then(function(ids){
-            if(ids.length === 0)
-            {
-              return Promise.reject('Could not find a webcam');
-            }
-            
-            return navigator.mediaDevices.getUserMedia({
-                video: {
-                  'optional': [{
-                    'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
-                    }]
-                }
-            });        
-        });                
-    }
-    
-    //this function will be called when JsQRScanner is ready to use
-    function JsQRScannerReady()
-    {
-        //create a new scanner passing to it a callback function that will be invoked when
-        //the scanner succesfully scan a QR code
-        var jbScanner = new JsQRScanner(onQRCodeScanned);
-        //var jbScanner = new JsQRScanner(onQRCodeScanned, provideVideo);
-        //reduce the size of analyzed image to increase performance on mobile devices
-        jbScanner.setSnapImageMaxSize(300);
-    	var scannerParentElement = document.getElementById("scanner");
-    	if(scannerParentElement)
-    	{
-    	    //append the jbScanner to an existing DOM element
-    		jbScanner.appendTo(scannerParentElement);
-    	}        
-    }
-  </script>    
-  </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 </html>
