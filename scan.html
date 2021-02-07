@@ -107,6 +107,7 @@
       data: {uuid: scannedText},
       cache: false,
       success: function (data) {
+        console.log(data);
         if (data[0] === null) {
           alert('User does not exist!');
         } else {
