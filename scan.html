@@ -108,16 +108,16 @@
       cache: false,
       success: function (data) {
         console.log(data);
-        if (data[0] === null) {
+        if (!data) {
           alert('User does not exist!');
         } else {
           // console.log(data)
           document.getElementById('fullname').innerText = data['fullname']
-          document.getElementById('picture').innerText = data[0].picture
+          document.getElementById('picture').innerText = data['picture']
 
-          document.getElementById('email').innerText = data[0].email
-          document.getElementById('profession').innerText = data[0].profession
-          document.getElementById('nextOfKinPhoneNumber').innerText = data[0].next_of_kin_phone_number
+          document.getElementById('email').innerText = data['email']
+          document.getElementById('profession').innerText = data['profession']
+          document.getElementById('nextOfKinPhoneNumber').innerText = data['next_of_kin_phone_number']
           $('#profileInformation').show();
         }
       }
